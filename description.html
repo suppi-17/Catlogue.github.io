@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spare Parts Catalogue</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: hsla(180, 7%, 97%, 0.973);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .search-box {
+            text-align: center;
+            margin-bottom: 5%;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping of blocks */
+            justify-content: space-around; /* Space between blocks */
+            margin-top: 4px;
+        }
+        .block {
+            background-color: #ccdee6e6; /* White background for blocks */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            width: 30%; /* Width of each block */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            text-align: center; /* Center align text */
+            margin-bottom: 20px; /* Space between rows */
+        }
+        .description-item {
+            margin: 10px 0;
+        }
+        img {
+            max-width: 90%; /* Responsive image */
+            height: auto; /* Maintain aspect ratio */
+            margin-top: 10px; /* Space above the image */
+            cursor: pointer; /* Change cursor to pointer */
+        }
+        a {
+            color: hsl(0, 0%, 3%); /* Link color */
+            text-decoration: underline; /* Underline links */
+        }
+        .highlight {
+            background-color: #ebeb75; /* Highlight color */
+            font-weight: bold; /* Optional: make highlighted text bold */
+        }
+        .full-description {
+            display: none; /* Initially hide the full description */
+            margin-top: 10px; /* Space above the description */
+        }
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+        }
+        .modal-content {
+            margin: auto; /* Center the image */
+            display: block;
+            max-width: 90%; /* Adjust as needed */
+            max-height: 90%; /* Adjust as needed */
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Spare Parts Catalogue</h1>
+    <h1>VARIABLES</h1>
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search by name or reference number" oninput="searchProducts()" />
+    </div>
+
+    <div class="container" id="productContainer">
+        <!-- Variable Block -->
+        <div class="block" data-name="Funnel Arm">
+            <img src="C:\\Users\\s8513154\\Downloads\\Catlogue\\Funnel Arm.jpg" alt="Funnel Arm" onclick="openModal(this.src)">
+            <div>Funnel Arm<br>
+            Reference No - 23-1167-2</div>
+            <div class="description-item">
+                <strong>
+                    <a href="#" onclick="toggleDescription(event)">View Details</a>
+                </strong>
+                <div class="full-description">
+                    Assembly Name - Funnel Arm<br>
+                    Machine Size - <br>
+                    Reference No - 23-1167-2<br>
+                    Lead Time - 10 weeks
+                </div>
+            </div>
+        </div>
+
+        <!-- New Variable Block -->
+        <div class="block" data-name="vname">
+            <img src="C:\\path\\to\\image.jpg" alt="vname" onclick="openModal(this.src )">
+            <div>Variable Name<br>
+            Reference No - 23-XXXX-X</div>
+            <div class="description-item">
+                <strong>
+                    <a href="#" onclick="toggleDescription(event)">View Details</a>
+                </strong>
+                <div class="full-description">
+                    Assembly Name - Variable Name<br>
+                    Machine Size - <br>
+                    Reference No - 23-XXXX-X<br>
+                    Lead Time - 8 weeks
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Image Display -->
+    <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="img01">
+    </div>
+
+    <script>
+        // Function to open the modal
+        function openModal(src) {
+            const modal = document.getElementById("myModal");
+            const modalImg = document.getElementById("img01");
+            modal.style.display = "block";
+            modalImg.src = src;
+
+            // Add event listener for closing modal with Escape key
+            document.addEventListener("keydown", function(event) {
+                if (event.key === "Escape") {
+                    closeModal();
+                }
+            });
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById("myModal");
+            modal.style.display = "none";
+            // Optionally remove the event listener if you want to avoid memory leaks
+            document.removeEventListener("keydown", closeModal);
+        }
+
+        // Function to toggle the full description
+        function toggleDescription(event) {
+            const fullDescription = event.target.closest('.description-item').querySelector('.full-description');
+            fullDescription.style.display = fullDescription.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Function to search products
+        function searchProducts() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const blocks = document.querySelectorAll('.block');
+
+            blocks.forEach(block => {
+                const name = block.getAttribute('data-name').toLowerCase();
+                block.style.display = name.includes(input) ? 'block' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>

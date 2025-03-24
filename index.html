@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spare Parts Catalogue</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Full height */
+            background-size: cover; /* Cover the entire background */
+            background-position: center; /* Center the background image */
+            background-image: url('https://www.accuramech.com/wp-content/uploads/LogoAccuramech_LARGE-scaled.jpg'); /* High-quality background image */
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.5); /* Light white overlay */
+            backdrop-filter: blur(5px); /* Blur effect */
+            z-index: 1; /* Ensure overlay is above the background */
+        }
+        .catalogue {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            height: 100%; /* Full height */
+            color: #00ffff; /* Text color */
+            position: relative; /* Position relative for z-index */
+            z-index: 2; /* Ensure catalogue is above the overlay */
+        }
+        .product {
+            border: 1px solid hwb(175 0% 90%);
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            text-align: center;
+            background-color: #7a8793ee; /* Semi-transparent background for readability */
+        }
+        .intro {
+            text-align: center;
+            color: rgb(7, 28, 66);
+            margin: 20px;
+            z-index: 2; /* Ensure intro is above the overlay */
+            position: relative; /* Position relative for z-index */
+        }
+        .pagination {
+            text-align: center;
+            margin: 20px;
+        }
+        .pagination button {
+            margin: 0 5px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .pagination button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div> <!-- Overlay for blur effect -->
+    <h1 style="text-align: center; color: rgb(7, 28, 66);">Spare Parts Catalogue</h1>
+
+    <div class="intro">
+        <h2>ACCURAMECH </h2>
+        <p>ACCURAMECH  High quality Precision Mechanical Parts(Subsidiary of Verallia Group).</p>
+        <p>Thank you for choosing ACCURAMECH. We look forward to serving you!</p>
+    </div>
+
+    <div class="catalogue" id="catalogue"></div>
+
+    <div class="pagination">
+        <button onclick="showCategory('variables')">Variables</button>
+        <button onclick="showCategory('assembly')">Assembly</button>
+        <button onclick="showCategory('spareParts')">Spare Parts</button>
+    </div>
+
+    <script>
+        // Sample data (can replace this with data from Python backend)
+        const products = {
+            variables: [
+                {
+                    name: 'VARIABLES',
+                    image: 'C:\Users\s8513154\description.html',
+                    imageLink: 'C:\Users\s8513154\description.html',
+                    descriptionLink: 'C:\Users\s8513154\description.html'
+                }
+            ],
+            assembly: [
+                {
+                    name: 'ASSEMBLY',
+                    image: ' C:\Users\s8513154\Assembly(D).html',
+                    imageLink: 'C:\Users\s8513154\Assembly(D).html',
+                    descriptionLink: 'C:\Inspection Scripted\Assembly(D).html'
+                }
+            ],
+            spareParts: [
+                {
+                    name: 'Spare Part',
+                    image: '',
+                    imageLink: '',
+                    descriptionLink: 'descriptionC.html'
+                }
+            ]
+        };
+
+        // Function to display products based on category
+        function displayProducts(category) {
+            const catalogueDiv = document.getElementById('catalogue');
+            catalogueDiv.innerHTML = ''; // Clear previous products
+            products[category].forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product';
+                productDiv.innerHTML = `
+                    <h2>${product.name}</h2>
+                    <a href="${product.imageLink}" target="_blank">
+                        <img src="${product.image}" alt="${product.name}" style="max-width: 100%; height: auto;">
+                    </a>
+                    <p>
+                        <a href="${product.descriptionLink}" target="_blank" style="color: white; text-decoration: underline;">
+                            View Description
+                        </a>
+                    </p>
+                `;
+                catalogueDiv.appendChild(productDiv);
+            });
+        }
+
+        // Function to show selected category
+        function showCategory(category) {
+            displayProducts(category);
+        }
+
+        // Display the first category by default
+        showCategory('variables');
+    </script>
+</body>
+</html>
